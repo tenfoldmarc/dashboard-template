@@ -1,0 +1,28 @@
+{
+  "name": "My Dashboard",
+  "owner": "Your Name",
+  "theme": {
+    "accent": "#635bff",
+    "mode": "dark"
+  },
+  "modules": {
+    "stripe": { "enabled": false },
+    "instagram": { "enabled": false },
+    "competitors": { "enabled": false },
+    "tasks": { "enabled": true },
+    "calendar": { "enabled": false },
+    "email": { "enabled": false },
+    "ads": { "enabled": false },
+    "scheduling": { "enabled": false }
+  },
+  "platforms": {
+    "instagram": { "accountId": "" },
+    "tiktok": { "accountId": "" },
+    "youtube": { "accountId": "" },
+    "facebook": { "accountId": "" }
+  },
+  "drive": {
+    "folderId": "",
+    "cutoffDate": ""
+  }
+}

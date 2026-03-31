@@ -1,0 +1,172 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    /* Dark theme (default) — Stripe-inspired Command Center */
+    --base: #0a0a0f;
+    --surface: #12121a;
+    --card: #16161f;
+    --card-hover: #1c1c28;
+    --border: #222233;
+    --border-hover: #1a1a28;
+    --text-primary: #f0f0f5;
+    --text-secondary: #8a8a9a;
+    --text-muted: #55556a;
+    --accent: #635bff;
+    --accent-hover: #7a73ff;
+    --accent-glow: rgba(99, 91, 255, 0.12);
+    --amber: #F59E0B;
+    --red: #EF4444;
+    --blue: #3B82F6;
+    --violet: #8B5CF6;
+    --rose: #F43F5E;
+    --cyan: #06B6D4;
+
+    --sidebar-bg: #0e0e14;
+    --sidebar-border: #222233;
+    --glass-bg: rgba(22, 22, 31, 0.6);
+    --glass-blur: blur(20px);
+  }
+
+  [data-theme="light"] {
+    --base: #f6f8fa;
+    --surface: #ffffff;
+    --card: #ffffff;
+    --card-hover: #f8f9fa;
+    --border: #e1e4e8;
+    --border-hover: #d0d7de;
+    --text-primary: #1a1a2e;
+    --text-secondary: #6b7280;
+    --text-muted: #9ca3af;
+    --accent: #635bff;
+    --accent-hover: #5046e5;
+    --accent-glow: rgba(99, 91, 255, 0.1);
+    --amber: #D97706;
+    --red: #DC2626;
+    --blue: #2563EB;
+    --violet: #7C3AED;
+    --rose: #E11D48;
+    --cyan: #0891B2;
+
+    --sidebar-bg: #ffffff;
+    --sidebar-border: #e1e4e8;
+    --glass-bg: rgba(255, 255, 255, 0.7);
+    --glass-blur: blur(16px);
+  }
+
+  * {
+    scrollbar-width: thin;
+    scrollbar-color: var(--accent) var(--base);
+  }
+
+  ::selection {
+    background: var(--accent);
+    color: white;
+  }
+}
+
+body {
+  font-family: var(--font-body), system-ui, sans-serif;
+  background: var(--base);
+  color: var(--text-primary);
+  transition: background-color .3s, color .3s;
+}
+
+/* Animated gradient mesh background (dark mode only) */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(ellipse 800px 600px at 15% 85%, rgba(99, 91, 255, .06), transparent),
+    radial-gradient(ellipse 600px 500px at 85% 15%, rgba(139, 92, 246, .04), transparent),
+    radial-gradient(ellipse 500px 400px at 50% 50%, rgba(59, 130, 246, .03), transparent);
+  animation: auroraShift 30s ease-in-out infinite alternate;
+}
+
+/* Dot grid texture */
+body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  opacity: .03;
+  background-image: radial-gradient(rgba(148, 163, 184, .4) 1px, transparent 1px);
+  background-size: 24px 24px;
+}
+
+/* Disable effects in light mode */
+[data-theme="light"] body::before,
+[data-theme="light"] body::after {
+  opacity: 0;
+}
+
+@keyframes auroraShift {
+  0% {
+    background:
+      radial-gradient(ellipse 800px 600px at 15% 85%, rgba(99, 91, 255, .06), transparent),
+      radial-gradient(ellipse 600px 500px at 85% 15%, rgba(139, 92, 246, .04), transparent),
+      radial-gradient(ellipse 500px 400px at 50% 50%, rgba(59, 130, 246, .03), transparent);
+  }
+  50% {
+    background:
+      radial-gradient(ellipse 700px 500px at 25% 70%, rgba(99, 91, 255, .08), transparent),
+      radial-gradient(ellipse 500px 600px at 75% 25%, rgba(245, 158, 11, .03), transparent),
+      radial-gradient(ellipse 600px 400px at 40% 60%, rgba(139, 92, 246, .04), transparent);
+  }
+  100% {
+    background:
+      radial-gradient(ellipse 900px 500px at 10% 90%, rgba(99, 91, 255, .05), transparent),
+      radial-gradient(ellipse 600px 400px at 90% 10%, rgba(59, 130, 246, .04), transparent),
+      radial-gradient(ellipse 500px 500px at 55% 45%, rgba(99, 91, 255, .06), transparent);
+  }
+}
+
+/* Reduce motion for accessibility */
+@media (prefers-reduced-motion: reduce) {
+  body::before { animation: none; }
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* Toast animations */
+@keyframes toastIn {
+  from { opacity: 0; transform: translateX(40px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+@keyframes toastOut {
+  from { opacity: 1; transform: translateX(0); }
+  to { opacity: 0; transform: translateX(40px); }
+}
+
+/* Toast theme variable */
+:root {
+  --toast-bg: rgba(22, 22, 31, .95);
+  --toast-shadow: 0 12px 32px rgba(0, 0, 0, .5);
+}
+[data-theme="light"] {
+  --toast-bg: rgba(255, 255, 255, .97);
+  --toast-shadow: 0 12px 32px rgba(0, 0, 0, .12);
+}
+
+/* Staggered card entrance delays */
+.stagger-1 { animation-delay: .05s; }
+.stagger-2 { animation-delay: .1s; }
+.stagger-3 { animation-delay: .15s; }
+.stagger-4 { animation-delay: .2s; }
+.stagger-5 { animation-delay: .25s; }
+.stagger-6 { animation-delay: .3s; }
+
+/* Print styles */
+@media print {
+  body::before, body::after { display: none; }
+  .sidebar { display: none; }
+  .main { margin-left: 0; }
+}
